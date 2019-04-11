@@ -5,7 +5,7 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var mongoose = require('mongoose')
 var md5 = require('md5');
-var moment = require('moment');
+//var moment = require('moment');
 var models = require('./models/mongo_models.js')
 
 app.use(express.static(__dirname + '../../Client/'))
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //moment().format();
 mongoose.Promise = Promise
 
-var dbUrl = 'mongodb://mohsen:mohsen123@clustertest-shard-00-00-0rgah.mongodb.net:27017,clustertest-shard-00-01-0rgah.mongodb.net:27017,clustertest-shard-00-02-0rgah.mongodb.net:27017/test?ssl=true&replicaSet=ClusterTest-shard-0&authSource=admin&retryWrites=true'
+var dbUrl = 'mongodb://myname:mypassword@clustertest-shard-00-00-0rgah.mongodb.net:27017,clustertest-shard-00-01-0rgah.mongodb.net:27017,clustertest-shard-00-02-0rgah.mongodb.net:27017/test?ssl=true&replicaSet=ClusterTest-shard-0&authSource=admin&retryWrites=true'
 
 
 
