@@ -8,7 +8,7 @@ var md5 = require('md5');
 var moment = require('moment');
 var models = require('./models/mongo_models.js')
 
-app.use(express.static(__dirname))
+app.use(express.static(__dirname + '../../Client/'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
