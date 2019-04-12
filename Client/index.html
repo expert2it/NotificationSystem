@@ -100,10 +100,14 @@
       //moment().format();
       $("#logout").click(() => {
         // Clearing the cache and storage/cookies
-        $.get('http://localhost:3000/logout')
+        // LocalHost http://localhost:3000/logout
+        //https://notificationsystem.azurewebsites.net/Server/logout
+        $.get('https://notificationsystem.azurewebsites.net/Server/logout')
           .done(() => {
             localStorage.clear();
-            window.location = "http://localhost:3000/login.html"
+            // LocalHost http://localhost:3000/login.html
+            // Azur: https://notificationsystem.azurewebsites.net/Client/login.html
+            window.location = "https://notificationsystem.azurewebsites.net/Client/login.html"
           })
           .fail((error) => {
             console.log('logout Error: ', error)
@@ -118,7 +122,9 @@
         $('#usertitle').html(JSON.parse(u).fullname)
         
         // Logging activity
-        $.post('http://localhost:3000/action', 
+        // Local: http://localhost:3000/action
+        // Azure
+        $.post('https://notificationsystem.azurewebsites.net/Server/action', 
             {'type': 'User logged in',
              'userID':JSON.parse(localStorage.getItem('user')).userID  
             })
@@ -135,14 +141,18 @@
             })
 
       } else {
-        window.location = "http://localhost:3000/login.html"
+        // Local: http://localhost:3000/login.html
+        // Azure: https://notificationsystem.azurewebsites.net/Client/login.html
+        window.location = "https://notificationsystem.azurewebsites.net/Client/login.html"
       }
     })
 
     // Saving activity to database
     function runAction(i){
       console.log('Executing Action No ', i);
-      $.post('http://localhost:3000/action', 
+      // Local: http://localhost:3000/action
+      // Azure: https://notificationsystem.azurewebsites.net/Server/action
+      $.post('https://notificationsystem.azurewebsites.net/Server/action', 
         {'type': i == 1 ? 'Executing Action 1' : 'Executing Action 2',
          'userID':JSON.parse(localStorage.getItem('user')).userID  
         })
@@ -157,7 +167,9 @@
     
     // Getting all user's notifications
     function getNotifications(userid){
-      $.post('http://localhost:3000/notifications', 
+      // Local: http://localhost:3000/notifications
+      // Azure: https://notificationsystem.azurewebsites.net/Server/notifications
+      $.post('https://notificationsystem.azurewebsites.net/Server/notifications', 
         { 'userID':userid })
         .done((result)=>{
             //console.log('Notifications: ', result)

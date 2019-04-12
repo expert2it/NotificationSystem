@@ -48,14 +48,18 @@
 
     function authenticate(user) {
         console.log('Authenticating...')
-        $.post('http://localhost:3000/login', user)
+        // Local: http://localhost:3000/login
+        // Azure: https://notificationsystem.azurewebsites.net/Server/login
+        $.post('https://notificationsystem.azurewebsites.net/Server/login', user)
         .done((result)=>{
             console.log('Successfully authenticated: ', result)
             localStorage.setItem('user', JSON.stringify(result));
             
             // Redirect to Index Page
             setTimeout(()=>{
-                window.location = "http://localhost:3000/index.html"
+                // Local: http://localhost:3000/index.html
+                // Azure: https://notificationsystem.azurewebsites.net/Server/login
+                window.location = "https://notificationsystem.azurewebsites.net/Client/index.html"
             }, 1000)
             
 
