@@ -87,7 +87,9 @@ app.post('/action', async (req, res) => {
         res.sendStatus(200)
         // Sending Notification
         //TODO: Send Email / SMS.
-        io.emit('message',  {'id': req.body.userID, 'message': req.body.type + '\nYou will recieve Email/SMS as well.'})
+        setTimeout(()=>{
+            io.emit('message',  {'id': req.body.userID, 'message': req.body.type + '\nYou will recieve Email/SMS as well.'})
+        },2000)
     }
     catch(err){
         res.sendStatus(500)
@@ -144,7 +146,7 @@ app.post('/setconfig', async (req, res) => {
 })
 // Scheduler for setting business Logic of user's activity (Every 2 minutes)
 var j = schedule.scheduleJob(' */2 * * * *', function(){
-    console.log('Scheduler is Running every 1 minute...!');
+    console.log('Scheduler is Running every 2 minute...!');
   });
 
 mongoose.connect(dbUrl, { useMongoClient: true }, (err) => {

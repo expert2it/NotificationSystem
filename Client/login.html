@@ -46,17 +46,6 @@
         })
     })
 
-
-    // function addMessage(message){
-    //     $("#messages").append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
-    // }
-
-    // function getMessages() {
-    //     $.get('http://localhost:3000/messages', (data) => {
-    //         data.forEach(addMessage);
-    //     })
-    // }
-
     function authenticate(user) {
         console.log('Authenticating...')
         $.post('http://localhost:3000/login', user)
@@ -67,7 +56,7 @@
             // Redirect to Index Page
             setTimeout(()=>{
                 window.location = "http://localhost:3000/index.html"
-            }, 2000)
+            }, 1000)
             
 
         })

@@ -116,9 +116,7 @@
         var socket = io()
         socket.on('message', getNotification)
         $('#usertitle').html(JSON.parse(u).fullname)
-        // TODO: send a welcome Action/Notification after seconds
-        // ......
-        // Get Notifications
+        
         // Logging activity
         $.post('http://localhost:3000/action', 
             {'type': 'User logged in',
@@ -126,18 +124,22 @@
             })
             .done((result)=>{
                 console.log('Successful: ', result)
-                // TODO: Send Notification after a sec
             })
             .fail((error)=>{ 
                 console.log('Error: ', error)
             }).always(()=>{
+                // Send Notification after 2 min
+                setTimeout(()=>{
                 getNotifications(JSON.parse(u).userID)
+                 }, 2500)
             })
 
       } else {
         window.location = "http://localhost:3000/login.html"
       }
     })
+
+    // Saving activity to database
     function runAction(i){
       console.log('Executing Action No ', i);
       $.post('http://localhost:3000/action', 
@@ -153,6 +155,7 @@
         })
     }
     
+    // Getting all user's notifications
     function getNotifications(userid){
       $.post('http://localhost:3000/notifications', 
         { 'userID':userid })
@@ -175,6 +178,7 @@
       
     }
 
+    // Showing Push Notification
     function getNotification(message){
       if(message && message.id == JSON.parse(localStorage.getItem('user')).userID){
         console.log(message)
