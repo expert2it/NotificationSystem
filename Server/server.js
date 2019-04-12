@@ -18,11 +18,11 @@ var dbUrl = 'mongodb://mohsen:mohsen123@clustertest-shard-00-00-0rgah.mongodb.ne
 
 
 
-app.get('/Users', (req, res) => {
-    models.Users.find({}, (err, User) => {
-        res.send(User)
-    })
-})
+// app.get('/Users', (req, res) => {
+//     models.Users.find({}, (err, User) => {
+//         res.send(User)
+//     })
+// })
 
 app.post('/newuser', async (req, res) => {
 
