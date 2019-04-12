@@ -5,17 +5,16 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var mongoose = require('mongoose')
 var md5 = require('md5');
-//var moment = require('moment');
+var schedule = require('node-schedule');
 var models = require('./models/mongo_models.js')
 
 app.use(express.static(__dirname + '../../Client/'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-//moment().format();
 mongoose.Promise = Promise
 
-var dbUrl = 'mongodb://myname:mypassword@clustertest-shard-00-00-0rgah.mongodb.net:27017,clustertest-shard-00-01-0rgah.mongodb.net:27017,clustertest-shard-00-02-0rgah.mongodb.net:27017/test?ssl=true&replicaSet=ClusterTest-shard-0&authSource=admin&retryWrites=true'
+var dbUrl = 'mongodb://mohsen:mohsen123@clustertest-shard-00-00-0rgah.mongodb.net:27017,clustertest-shard-00-01-0rgah.mongodb.net:27017,clustertest-shard-00-02-0rgah.mongodb.net:27017/test?ssl=true&replicaSet=ClusterTest-shard-0&authSource=admin&retryWrites=true'
 
 
 
@@ -25,13 +24,6 @@ app.get('/Users', (req, res) => {
     })
 })
 
-// app.get('/messages/:user', (req, res) => {
-//     var user = req.params.user
-//     Message.find({name: user}, (err, messages) => {
-//         res.send(messages)
-//     })
-// })
-
 app.post('/newuser', async (req, res) => {
 
     try {
@@ -40,13 +32,6 @@ app.post('/newuser', async (req, res) => {
         var savedMessage = await user.save()
 
         console.log('saved: ', savedMessage)
-
-        // var censored = await Message.findOne({ message: 'badword' })
-
-        // if (censored)
-        //     await Message.remove({ _id: censored.id })
-        // else
-        //     io.emit('message', req.body)
 
         res.sendStatus(200)
     } catch (error) {
@@ -101,7 +86,8 @@ app.post('/action', async (req, res) => {
         await activity.save()
         res.sendStatus(200)
         // Sending Notification
-        io.emit('message',  {'id': req.body.userID, 'message': req.body.type})
+        //TODO: Send Email / SMS.
+        io.emit('message',  {'id': req.body.userID, 'message': req.body.type + '\nYou will recieve Email/SMS as well.'})
     }
     catch(err){
         res.sendStatus(500)
@@ -133,8 +119,36 @@ app.post('/notifications', async (req, res) => {
         console.log('Notifications Successfull')
     }
 })
+
+// Getting configuration settings
+app.get('/config', (req, res) => {
+    models.Configurations.find({}, (err,configs) => {
+        res.send(configs)
+    })
+})
+
+// Updating configuration
+app.post('/setconfig', async (req, res) => {
+    try{
+        console.log('Updaing config: ', req.body.id, req.body.val)
+        var u = await models.Configurations.updateOne({ _id: req.body.id }, { $set: { idle_days: req.body.val } });
+        res.sendStatus(200)
+    }
+    catch(err){
+        res.sendStatus(500)
+        console.log('Update failed: ', err)
+    }
+    finally{
+        console.log('Update Successfull')
+    }
+})
+// Scheduler for setting business Logic of user's activity (Every 2 minutes)
+var j = schedule.scheduleJob(' */2 * * * *', function(){
+    console.log('Scheduler is Running every 1 minute...!');
+  });
+
 mongoose.connect(dbUrl, { useMongoClient: true }, (err) => {
-    console.log('mongoDB connection status, error: ', err)
+    console.log('Connecting to mongoDB, error: ', err)
 })
 
 var server = http.listen(3000, () => {
