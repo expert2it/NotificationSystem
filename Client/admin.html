@@ -78,13 +78,13 @@
                 alert('Sorry, You are authorized to Admin panel!')
                 // Local: http://localhost:3000/index.html
                 // Azure: https://notificationsystem.azurewebsites.net/Client/index.html
-                window.location = "https://notificationsystem.azurewebsites.net/Client/index.html"
+                window.location = "index.html"
             }
         })
         function getConfig(userid) {
              // Local: http://localhost:3000/config
             // Azure: https://notificationsystem.azurewebsites.net/Client/index.html
-            $.get('https://notificationsystem.azurewebsites.net/Server/config')
+            $.get('config')
                 .done((result) => {
                     //console.log('Notifications: ', result)
                     if (result && result.length > 0) {
@@ -108,7 +108,7 @@
             console.log('Saving Configs: ', status, $('#' +id).val());
             // Local: http://localhost:3000/setconfig
             // Azure: https://notificationsystem.azurewebsites.net/Server/setconfig
-            $.post('https://notificationsystem.azurewebsites.net/Server/setconfig',
+            $.post('setconfig',
                 {
                     'id': id,
                     'val': $('#' +id).val(),

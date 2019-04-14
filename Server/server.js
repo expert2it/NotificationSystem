@@ -155,5 +155,5 @@ mongoose.connect(dbUrl, { useMongoClient: true }, (err) => {
 
 const port = process.env.PORT || 1337;
 var server = http.listen(port, () => {
-    console.log('server is listening on port', server.address().port)
+    console.log('server is listening on port', port) //server.address().port
 })

@@ -102,12 +102,12 @@
         // Clearing the cache and storage/cookies
         // LocalHost http://localhost:3000/logout
         //https://notificationsystem.azurewebsites.net/Server/logout
-        $.get('https://notificationsystem.azurewebsites.net/Server/logout')
+        $.get('logout')
           .done(() => {
             localStorage.clear();
             // LocalHost http://localhost:3000/login.html
             // Azur: https://notificationsystem.azurewebsites.net/Client/login.html
-            window.location = "https://notificationsystem.azurewebsites.net/Client/login.html"
+            window.location = "login.html"
           })
           .fail((error) => {
             console.log('logout Error: ', error)
@@ -124,7 +124,7 @@
         // Logging activity
         // Local: http://localhost:3000/action
         // Azure
-        $.post('https://notificationsystem.azurewebsites.net/Server/action', 
+        $.post('action', 
             {'type': 'User logged in',
              'userID':JSON.parse(localStorage.getItem('user')).userID  
             })
@@ -143,7 +143,7 @@
       } else {
         // Local: http://localhost:3000/login.html
         // Azure: https://notificationsystem.azurewebsites.net/Client/login.html
-        window.location = "https://notificationsystem.azurewebsites.net/Client/login.html"
+        window.location = "login.html"
       }
     })
 
@@ -152,7 +152,7 @@
       console.log('Executing Action No ', i);
       // Local: http://localhost:3000/action
       // Azure: https://notificationsystem.azurewebsites.net/Server/action
-      $.post('https://notificationsystem.azurewebsites.net/Server/action', 
+      $.post('action', 
         {'type': i == 1 ? 'Executing Action 1' : 'Executing Action 2',
          'userID':JSON.parse(localStorage.getItem('user')).userID  
         })
@@ -169,7 +169,7 @@
     function getNotifications(userid){
       // Local: http://localhost:3000/notifications
       // Azure: https://notificationsystem.azurewebsites.net/Server/notifications
-      $.post('https://notificationsystem.azurewebsites.net/Server/notifications', 
+      $.post('notifications', 
         { 'userID':userid })
         .done((result)=>{
             //console.log('Notifications: ', result)

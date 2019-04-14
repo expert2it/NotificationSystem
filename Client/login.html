@@ -50,7 +50,7 @@
         console.log('Authenticating...')
         // Local: http://localhost:3000/login
         // Azure: https://notificationsystem.azurewebsites.net/Server/login
-        $.post('https://notificationsystem.azurewebsites.net/Server/login', user)
+        $.post('login', user)
         .done((result)=>{
             console.log('Successfully authenticated: ', result)
             localStorage.setItem('user', JSON.stringify(result));
@@ -59,7 +59,7 @@
             setTimeout(()=>{
                 // Local: http://localhost:3000/index.html
                 // Azure: https://notificationsystem.azurewebsites.net/Server/login
-                window.location = "https://notificationsystem.azurewebsites.net/Client/index.html"
+                window.location = "index.html"
             }, 1000)
             
 
