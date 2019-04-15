@@ -1,7 +1,5 @@
-# NotificationSystem
+# Notification System
 
-<<<<<<< HEAD
-Under Development
-=======
-Under Development
->>>>>>> dc4a9e12a0d86d7810c12b6ffeb9496dc484ef67
+Notification system based on user behaviour on system, you assume have records of
+user which use mobile application for each action and functionalities this records anonymously send to
+server and store in mongoDB:
