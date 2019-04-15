@@ -4,7 +4,13 @@ Notification system based on user behaviour on system, you assume have records o
 user which use mobile application for each action and functionalities this records anonymously send to
 server and store in mongoDB:
 
+Sample of Activities used in the system is including: 
 
+**`User Login, Action 1, and Action 2`**
+
+Upon user login, a `User Login Notification` will be sent to the user and he will be able to see list of previous activities in a table used in the home page.
+
+**Admin Panel** is in charge of configuring the scheduler for sending notification to users who interact with the system within defined days:
   - **Active:** Send the Email/Push/SMS notification everyday
   - **Not Responsive:** Send the Email/Push/SMS notification every 3 days
   - **Not Active:** Send the Email/Push/SMS notification every 1 month
